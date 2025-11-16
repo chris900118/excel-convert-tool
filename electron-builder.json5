@@ -1,0 +1,50 @@
+{
+  // 您的应用ID，保持唯一
+  "appId": "com.cdrc.excelconverter.zhangxiao",
+  
+  // 最终程序显示的名称
+  "productName": "Excel 数据转换工具",
+  
+  // 最终 .exe 文件的输出目录
+  "directories": {
+    "output": "release/"
+  },
+  
+  // 需要打包进程序的文件
+  // "dist" 包含Vite打包好的前端UI
+  // "dist-electron" 包含tsc编译好的主进程代码
+  "files": [
+    "dist/**/*",
+    "dist-electron/**/*"
+  ],
+  
+  // Windows (exe) 的具体配置
+  "win": {
+    // 您放在 public 文件夹下的图标
+    "icon": "public/icon.png",
+    
+    // 跳过签名（避免 Windows 权限问题）
+    "signingHashAlgorithms": ["sha256"],
+    "sign": null,
+    
+    // 目标配置
+    "target": [
+      {
+        // "portable" 就是您要的"即插即用"模式！
+        // 它会生成一个单独的 .exe 文件，无需安装。
+        "target": "portable",
+        "arch": [
+          "x64" // 仅打包64位
+        ]
+      }
+    ]
+  },
+  
+  // NSIS 安装包配置 (可选，如果您也想要安装版)
+  "nsis": {
+    "oneClick": false, // 不是一键安装
+    "allowToChangeInstallationDirectory": true, // 允许用户选择安装路径
+    "perMachine": true // 为机器上所有用户安装
+  }
+}
+

@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 使用 Inter 字体，更接近现代UI设计 */
+body {
+    font-family: 'Inter', 'sans-serif';
+}
+
+/* 强制页面不滚动，这是桌面应用布局的关键 */
+html, body, #root {
+    overflow: hidden;
+    height: 100vh;
+    max-height: 100vh;
+    background-color: #f3f4f6; /* 浅灰色背景 */
+}
+
+/* 自定义滚动条样式 (可选，但能提升质感) */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1; /* 滚动条滑块 */
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+::-webkit-scrollbar-track {
+    background: #f1f5f9; /* 滚动条轨道 */
+}

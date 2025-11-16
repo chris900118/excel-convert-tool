@@ -1,0 +1,180 @@
+/* --- V11.0 精修版样式 --- */
+
+/* --- 1. 根布局与变量 (修复滚动问题) --- */
+:root {
+  --panel-width: 320px;
+  --header-height: 48px;
+  --color-bg-panel: #f7f8fa;
+  --color-border-1: #e5e6eb;
+  --color-border-2: #f2f3f5;
+  --color-text-1: #1d2129;
+  --color-text-2: #4e5969;
+  --color-text-3: #86909c;
+  --color-primary-light: #e8f3ff;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #fff;
+  /* 禁止 body 滚动 */
+  overflow: hidden;
+}
+
+.app-layout {
+  height: 100vh;
+  background-color: #fff;
+}
+
+.app-header {
+  height: var(--header-height);
+  line-height: var(--header-height);
+  background-color: #165dff;
+  border-bottom: none;
+  padding: 0 24px;
+  flex-shrink: 0; /* 防止 flex 压缩 header */
+}
+
+/* V11.0 核心：修复嵌套滚动 */
+.app-body {
+  height: calc(100vh - var(--header-height));
+  overflow: hidden; /* 禁止 app-body 自身滚动 */
+}
+
+/* --- 2. 左侧控制面板 (精修间距和对齐) --- */
+.control-panel {
+  background-color: var(--color-bg-panel);
+  border-right: 1px solid var(--color-border-1);
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* 占满 app-body 高度 */
+}
+
+.control-panel-body {
+  padding: 24px;
+  overflow-y: auto; /* 只允许此区域内部滚动 */
+  flex-grow: 1;
+}
+
+.panel-title {
+  color: var(--color-text-1);
+  margin-bottom: 16px !important;
+}
+
+.control-panel-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--color-border-1);
+  background-color: var(--color-bg-panel);
+  flex-shrink: 0; /* 防止 flex 压缩 footer */
+}
+
+/* --- 3. 文件上传区域 (无变化) --- */
+.file-drop-zone {
+  border: 2px dashed var(--color-border-1);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.file-drop-zone:hover { border-color: #165dff; }
+.file-drop-zone[data-ready="true"] {
+  border-style: solid;
+  border-color: #00b42a;
+  background-color: #f0fff0;
+}
+.file-drop-zone-icon { font-size: 24px; color: var(--color-text-2); }
+.file-drop-zone[data-ready="true"] .file-drop-zone-icon { color: #00b42a; }
+.file-drop-zone-text { text-align: left; }
+.file-drop-zone-text .arco-typography { margin-bottom: 0; }
+
+/* --- 4. 右侧工作区 (精修布局) --- */
+.workspace {
+  padding: 0 !important;
+  background-color: #fff;
+  height: 100%; /* 占满 app-body 高度 */
+  display: flex;
+  flex-direction: column;
+}
+
+.workspace-tabs {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.workspace-tabs .arco-tabs-nav {
+  padding: 8px 24px 0 24px;
+  border-bottom: 1px solid var(--color-border-1);
+  flex-shrink: 0;
+}
+.workspace-tabs .arco-tabs-content {
+  flex-grow: 1;
+  overflow-y: auto; /* 允许 Tab 内容区滚动 */
+}
+
+.mapping-workspace {
+  padding: 24px;
+}
+
+/* --- 5. 字段映射列表 (精修) --- */
+.field-list {
+  /* 不再需要固定高度，由 flexbox 自然撑开 */
+  padding: 16px;
+  background-color: var(--color-bg-panel);
+  border-radius: 4px;
+  min-height: 300px; /* 保证在内容少时也有一定高度 */
+}
+
+.field-item { /* ... V10.0 样式无变化 ... */ }
+
+/* --- 6. 结果/日志区域 (V11.0 全新布局) --- */
+.result-workspace {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.result-table-container {
+  padding: 24px;
+  flex-shrink: 0; /* 表格区域不压缩 */
+}
+.result-log-container {
+  flex-grow: 1; /* 日志区域占据剩余所有空间 */
+  border-top: 1px solid var(--color-border-1);
+  display: flex;
+  flex-direction: column;
+  min-height: 150px; /* 保证日志区最少有 150px 高度 */
+}
+.log-textarea {
+  flex-grow: 1;
+  resize: none !important;
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+  padding: 16px !important;
+  background-color: #fafafa !important;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  color: var(--color-text-2);
+}
+
+/* --- 7. 空状态提示 (无变化) --- */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 0;
+  text-align: center;
+}
+.empty-state-icon {
+  font-size: 48px;
+  margin-bottom: 24px;
+  color: var(--color-text-3);
+}
